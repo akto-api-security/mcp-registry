@@ -1,0 +1,36 @@
+name: Sync MCP Registry
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: "Reason for manual sync"
+        required: false
+        default: "Manual trigger"
+
+jobs:
+  sync:
+    name: Trigger Akto MCP Registry Sync
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Sync registry with Akto
+        run: |
+          response=$(curl -s -o /tmp/response_body.txt -w "%{http_code}" \
+            -X POST "${{ secrets.AKTO_URL }}/api/syncMcpRegistry" \
+            -H "X-API-KEY: ${{ secrets.AKTO_API_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d "{\"registryId\": \"${{ secrets.AKTO_REGISTRY_ID }}\"}")
+
+          body=$(cat /tmp/response_body.txt)
+          echo "HTTP status : $response"
+          echo "Response    : $body"
+
+          if [ "$response" -ne 200 ]; then
+            echo "Sync failed."
+            exit 1
+          fi
+
+          echo "MCP registry synced successfully."
