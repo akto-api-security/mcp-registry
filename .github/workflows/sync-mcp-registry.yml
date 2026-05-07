@@ -26,7 +26,7 @@ jobs:
           LOCAL_HASH=$(sha256sum mcp-allowlist.csv | awk '{print $1}')
           echo "Local hash : $LOCAL_HASH"
 
-          for i in $(seq 1 10); do
+          for i in $(seq 1 60); do
             REMOTE_HASH=$(curl -sf "$RAW_URL" | sha256sum | awk '{print $1}')
             echo "Attempt $i — remote hash: $REMOTE_HASH"
             if [ "$REMOTE_HASH" = "$LOCAL_HASH" ]; then
@@ -36,7 +36,7 @@ jobs:
             sleep 10
           done
 
-          echo "Raw URL did not reflect latest commit after 100s. Aborting."
+          echo "Raw URL did not reflect latest commit after 600s. Aborting."
           exit 1
 
       - name: Sync registry with Akto
