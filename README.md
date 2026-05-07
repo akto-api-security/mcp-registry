@@ -64,11 +64,18 @@ Copy the returned API key.
 
 In your GitHub repo → **Settings → Secrets and variables → Actions**, add:
 
-| Secret name        | Value                                      |
-|--------------------|--------------------------------------------|
-| `AKTO_URL`         | `https://your-akto-instance.com`           |
-| `AKTO_API_KEY`     | The API key from step 3                    |
-| `AKTO_REGISTRY_ID` | The `registryId` from step 2              |
+**Secrets** (Settings → Secrets):
+
+| Secret name    | Value                   |
+|----------------|-------------------------|
+| `AKTO_API_KEY` | The API key from step 3 |
+
+**Variables** (Settings → Variables):
+
+| Variable name      | Value                            |
+|--------------------|----------------------------------|
+| `AKTO_URL`         | `https://your-akto-instance.com` |
+| `AKTO_REGISTRY_ID` | The `registryId` from step 2     |
 
 ### 5. Trigger a sync
 

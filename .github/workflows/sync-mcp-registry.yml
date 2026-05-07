@@ -19,10 +19,10 @@ jobs:
       - name: Sync registry with Akto
         run: |
           response=$(curl -s -o /tmp/response_body.txt -w "%{http_code}" \
-            -X POST "${{ secrets.AKTO_URL }}/api/syncMcpRegistry" \
+            -X POST "${{ vars.AKTO_URL }}/api/syncMcpRegistry" \
             -H "X-API-KEY: ${{ secrets.AKTO_API_KEY }}" \
             -H "Content-Type: application/json" \
-            -d "{\"registryId\": \"${{ secrets.AKTO_REGISTRY_ID }}\"}")
+            -d "{\"registryId\": \"${{ vars.AKTO_REGISTRY_ID }}\"}")
 
           body=$(cat /tmp/response_body.txt)
           echo "HTTP status : $response"
